@@ -1,7 +1,8 @@
-import React, { useImperativeHandle, useRef } from "react";
-import ChildCom2 from "./ChildCom2";
+import React, { useContext, useImperativeHandle, useRef } from "react";
+import { context } from "../context";
 export const Fragment = (props, ref) => {
   const childRef = useRef();
+  const { count, setCounter } = useContext(context);
   useImperativeHandle(ref, () => ({
     click: () => {
       console.log("我是 click", childRef.current);
@@ -9,8 +10,9 @@ export const Fragment = (props, ref) => {
   }));
   return (
     <div ref={childRef}>
-      子组件1
-      <ChildCom2 />
+      子组件
+      <span>{count}</span>
+      <button onClick={() => setCounter(count + 1)}>点我</button>
     </div>
   );
 };
