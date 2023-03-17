@@ -1,22 +1,21 @@
-import React, { useContext, useImperativeHandle, useRef } from "react";
-import ChildCom3 from "./ChildCom3";
-import { context } from "../context";
-export const Fragment = (props, ref) => {
-  const childRef = useRef();
-  const { count, setCounter } = useContext(context);
-  useImperativeHandle(ref, () => ({
-    click: () => {
-      console.log("我是 click", childRef.current);
-    },
-  }));
+import React from "react";
+
+function ChildCom1(props) {
+  console.log("ChildCom2 渲染了");
   return (
-    <div ref={childRef}>
-      子组件
-      <span>{count}</span>
-      <button onClick={() => setCounter(count + 1)}>点我</button>
-      <ChildCom3 />
+    <div
+      style={{
+        width: "200px",
+        height: "100px",
+        border: "1px solid",
+      }}
+    >
+      ChildCom2
+      <div>{props.counter}</div>
+      <button onClick={() => props.setCounter(props.counter + 1)}>+1</button>
+      <button onClick={() => props.test()}>test</button>
     </div>
   );
-};
+}
 
-export default React.forwardRef(Fragment);
+export default React.memo(ChildCom1);
